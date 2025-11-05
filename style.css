@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    font-family: monospace;
+}
+
+
+/* .circle-slider{
+    position: relative;
+    top: 10px;
+    left:50px;
+} */
+
+.music-search{
+    width: 400px;
+    background-color: #252525;
+    border-radius: 20px;
+}
+
+.music-search-inter{
+    padding: 20px;
+}
+
+#anchor{
+    position: relative;
+}
+
+circle{
+    fill: none;
+}
+
+circle:nth-child(1){
+    stroke: #252525;
+    stroke-width: 3px;
+    
+}
+
+circle:nth-child(2){
+    stroke: #FECF00;
+    stroke-width: 3px;
+    stroke-dasharray: calc(2*3.14*30);
+    /* stroke-dashoffset: 180; */
+    transform-origin: center;
+    transform: rotate(-90deg);
+    stroke-linecap: round;
+}
+
+#anchor svg{
+    position: relative;
+}
+
+#image{
+    aspect-ratio: 1/1;
+    width: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -59%);
+    object-fit: cover;
+}
+
+#title{
+    margin-right: auto;
+}
+
+
+/* ini dari uiUniverse */
+
+/* From Uiverse.io by catraco */ 
+/*------ Settings ------*/
+
+.interflex{
+    color: #fff;
+    font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+#penyanyi{
+    margin-top: 9px;
+    opacity: 0.7;
+    font-size: 10px;
+}
+
+.interflex:nth-child(1){
+    position: relative;
+    right: 10px;
+}
+
+.container-music hr{
+    opacity: 0.2;
+    position: relative;
+    bottom: 5px;
+}
+.container {
+  --color: #252525;
+  --size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+    left: 5px;
+  cursor: pointer;
+  font-size: var(--size);
+  user-select: none;
+  fill: var(--color);
+  z-index: 2;
+}
+
+.container::before{
+    content: '';
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.container .play {
+  position: absolute;
+  animation: keyframes-fill .5s;
+}
+
+.container .pause {
+  position: absolute;
+  display: none;
+  animation: keyframes-fill .5s;
+}
+
+/* ------ On check event ------ */
+.container input:checked ~ .play {
+  display: none;
+}
+
+.container input:checked ~ .pause {
+  display: block;
+}
+
+/* ------ Hide the default checkbox ------ */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* ------ Animation ------ */
+@keyframes keyframes-fill {
+  0% {
+    transform: rotate(-180deg) scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: rotate(-10deg) scale(1.2);
+  }
+}
