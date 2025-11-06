@@ -21,6 +21,17 @@
     border-radius: 20px;
 }
 
+#musicSearch-dialog{
+  opacity: 0;
+  z-index: 2;
+  position:fixed;
+  left: 50%;
+  top: 150px;
+  width: 100%;
+  transform: translateX(-50%);
+}
+
+
 .music-search::-webkit-scrollbar {
   
   width: var(--sb-size);
@@ -74,6 +85,10 @@
     }
 }
 
+#exit{
+  position: fixed;
+}
+
 
 .music-search-inter{
     padding: 20px;
@@ -106,6 +121,8 @@ circle:nth-child(2){
 #anchor svg{
     position: relative;
 }
+
+
 
 #image{
     aspect-ratio: 1/1;

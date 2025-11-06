@@ -18,6 +18,13 @@
 </head>
 
 <body>
+    <div class="music-search" id="musicSearch-dialog">
+                <div class="music-search-inter" id="music-container-search">
+                    <p style="margin-bottom: 5px; color: white;">Music List</p>
+
+                </div>
+                <button id="exit">exit</button>
+            </div>
     <div class="sidebar-left">
         <div class="menu-icon logo" data-tooltip="Music Player">
             <img src="/try.jpg" alt="Logo Musik">
@@ -58,8 +65,6 @@
 
                 <ul class="nav-menu">
                     <li class="nav-item active">Music</li>
-                    <li class="nav-item">Podcast</li>
-                    <li class="nav-item">Live</li>
                 </ul>
             </div>
 
@@ -73,7 +78,7 @@
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
                     </button>
-                    <input type="text" placeholder="Global search" />
+                    <input type="text" placeholder="Global search" id="inputsearch"/>
                 </div>
             </div>
 
@@ -193,7 +198,6 @@
                 <!-- Top Mahasiswa  -->
             </div>
             <div class="music-search" id="musicSearch">
-                
                 <div class="music-search-inter" id="music-container">
                     <p style="margin-bottom: 5px; color: white;">Music List</p>
 

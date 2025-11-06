@@ -32,6 +32,7 @@ let progressInterval; // Variable untuk menyimpan interval timer
 let idBefore;
 let songlistMetadata = [];
 let dataMusic = [];
+let currentAudiovolume = 1;
 
 // AMBIL ELEMEN 
 const playBtn = document.getElementById('playBtn'); // Tombol play/pause
@@ -46,6 +47,9 @@ const totalDurationelement = document.getElementById("duration")
 const audioControl = document.getElementById("audioplayer");
 const prevBTN = document.getElementById("prev-btn");
 const nextBTN = document.getElementById("next-btn");
+const inputSearch = document.getElementById("inputsearch");
+const musicSearchtop = document.getElementById("music-container-search");
+const popupwin = document.getElementById("musicSearch-dialog")
 // FUNGSI HELPER
 
 // Fungsi untuk format detik menjadi MM:SS
@@ -65,7 +69,6 @@ function updateProgress() {
 async function getMusicListAndSearch(search=""){
     const songlist = await fetch(getlist(search))
     const hasil = await songlist.json()
-    songlistMetadata = hasil;
     return hasil
 }
 
@@ -90,6 +93,7 @@ async function appendToMusic() {
 appendToMusic()
 
 function chekQueue(id){
+    console.log(dataMusic.length)
     if(!dataMusic.includes(id)){
         dataMusic.push(id);
     }
@@ -108,12 +112,13 @@ prevBTN.addEventListener("click", ()=>{
     currentTime = 0;
     audioControl.currentTime = 0
     const indexFind = findIdinArray-1
-    console.log(indexFind)
     if(indexFind < 0){
         isPlaying = false;
         playpausebtn(fillterId[fillterId.length-1])
+        chekQueue(fillterId[fillterId.length-1])
     }else{
         isPlaying = false;
+        chekQueue(fillterId[indexFind])
         playpausebtn(fillterId[indexFind])
     }
     chekQueue()
@@ -127,16 +132,15 @@ nextBTN.addEventListener("click", ()=>{
     currentTime = 0;
     audioControl.currentTime = 0
     const indexFind = findIdinArray+1
-    console.log(indexFind)
-
     if(indexFind >= fillterId.length){
         isPlaying = false;
         playpausebtn(fillterId[0])
+        chekQueue(fillterId[0])
     }else{
         isPlaying = false;
         playpausebtn(fillterId[indexFind])
+        chekQueue(fillterId[indexFind])
     }
-    chekQueue()
 
 })
 
@@ -158,16 +162,16 @@ audioControl.addEventListener("ended", ()=>{
     currentTime = 0;
     audioControl.currentTime = 0
     const indexFind = findIdinArray+1
-    console.log(indexFind)
 
     if(indexFind >= fillterId.length){
         isPlaying = false;
         playpausebtn(fillterId[0])
+        chekQueue(fillterId[0])
     }else{
         isPlaying = false;
         playpausebtn(fillterId[indexFind])
+        chekQueue(fillterId[indexFind])
     }
-    chekQueue()
 
 })
 
@@ -240,8 +244,14 @@ heartBtn.addEventListener('click', () => {
 
 // EVENT LISTENER - VOLUME BUTTON
 
+volumeBtn.classList.toggle('muted');
 volumeBtn.addEventListener('click', () => {
     volumeBtn.classList.toggle('muted'); // Toggle class muted
+    if(volumeBtn.classList.toggle("unmuted")){
+        audioControl.volume = 0
+    }else{
+        audioControl.volume = currentAudiovolume
+    }
 });
 
 
@@ -296,4 +306,49 @@ document.addEventListener('mouseup', () => {
 
 // Set tampilan awal progress bar
 updateProgress();
+
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...args); // Spread args langsung
+    }, timeout);
+  };
+}
+
+let search = '';
+const debouncedSearch = debounce(async() => {
+    search = inputSearch.value.replace(/\s+/g, '');
+    console.log(search);
+    if(!search == ' '){
+        console.log("[INFO] wait to fetch")
+        musicSearchtop.innerHTML = ''
+        const songlist = await getMusicListAndSearch(inputSearch.value) || [];
+        if(songlist.length <= 0) return
+        const songs = songlist['subsonic-response'].searchResult3?.song || [];
+        console.log(songs)
+        console.log(songlist)
+        songs.forEach(element => {
+            console.log(element.id)
+            musicSearchtop.appendChild(musicsongs(element.title, element.artist, element.id, getThumbnailURL(element.id)))
+        });
+    }
+}, 500);
+
+
+inputSearch.addEventListener("keydown", ()=>{
+    debouncedSearch()
+})
+
+popupwin.style.display = "none"
+inputSearch.addEventListener("focus", ()=>{
+    popupwin.style.display = ""
+    popupwin.style.opacity = 1
+})
+
+document.getElementById("exit").addEventListener("click", ()=>{
+    popupwin.style.display = "none"
+})
 
