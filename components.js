@@ -37,3 +37,14 @@ const musicsongs = (title, artist, musicId=1, imageSRC="")=>{
             </div>`;
             return doc
         }
+
+    const article = (Artis, imageSRC) =>{
+        return `
+            <article class="artist" role="listitem">
+                <img class="artist__cover" alt="Artist cover" src="${imageSRC}" />
+                <h3 class="artist__name">${Artis}</h3>
+                <p class="artist__meta">INFORMATIKA</p>
+            </article>
+
+        `
+    }

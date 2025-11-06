@@ -7,14 +7,19 @@ const auth = () =>{
 const getlist = (search="", songCount=10, songOffset=0) => {
     return BASEURL + `/rest/search3?query=${search}&songCount=${songCount}&songOffset=${songOffset}${auth()}`
 } 
+
 const getThumbnailURL = (id)=>{
     if (!id) return console.error("please see your id music")
-    return `${BASEURL}/rest/getCoverArt?id=${id}&size=300${auth()}`
+    return `${BASEURL}/rest/getCoverArt?id=${id}&size=100${auth()}`
 }
 
 const getLiveSongURL = (id) =>{
     if (!id) return console.error("please see your id music")
     return`${BASEURL}/rest/stream?id=${id}${auth()}`
+}
+
+const getRandomSongURL = (limit=5) =>{
+    return `${BASEURL}/rest/getRandomSongs?size=${limit}${auth()}`
 }
 
 const musicContainer = document.getElementById("music-container");
@@ -25,6 +30,8 @@ let currentTime = 0; // Waktu saat ini dalam detik (02:54)
 let totalDuration = 0; // Total durasi musik dalam detik (05:32)
 let progressInterval; // Variable untuk menyimpan interval timer
 let idBefore;
+let songlistMetadata = [];
+let dataMusic = [];
 
 // AMBIL ELEMEN 
 const playBtn = document.getElementById('playBtn'); // Tombol play/pause
@@ -37,6 +44,8 @@ const heartBtn = document.getElementById('heartBtn'); // Tombol like
 const volumeBtn = document.getElementById('volumeBtn'); // Tombol volume
 const totalDurationelement = document.getElementById("duration")
 const audioControl = document.getElementById("audioplayer");
+const prevBTN = document.getElementById("prev-btn");
+const nextBTN = document.getElementById("next-btn");
 // FUNGSI HELPER
 
 // Fungsi untuk format detik menjadi MM:SS
@@ -56,26 +65,80 @@ function updateProgress() {
 async function getMusicListAndSearch(search=""){
     const songlist = await fetch(getlist(search))
     const hasil = await songlist.json()
+    songlistMetadata = hasil;
     return hasil
 }
 
 async function appendToMusic() {
     try{
-        const songlist = await getMusicListAndSearch();
-
-        const songs = songlist['subsonic-response'].searchResult3?.song || [];
+        const songlist = await fetch(getRandomSongURL(10)).then(f => f.json());
+        const songs = songlist['subsonic-response'].randomSongs?.song || [];
+        
         songs.forEach(element => {
-            
-            musicContainer.appendChild(musicsongs(element.title, element.artist, element.id, getThumbnailURL(element.id)))
+            if(!songlistMetadata.includes(element.id)){
+                songlistMetadata.push(element.id)
+                musicContainer.appendChild(musicsongs(element.title, element.artist, element.id, getThumbnailURL(element.id)))
+            }
         });
-    }catch{
-        alert("EROR WHEN GET DATA TO SERVER PLEASE SEE YOUR CONNECTION")
+    }catch(err){
+        console.error(err);
+
+        // alert("EROR WHEN GET DATA TO SERVER PLEASE SEE YOUR CONNECTION")
     }
 }
 
 appendToMusic()
 
+function chekQueue(id){
+    if(!dataMusic.includes(id)){
+        dataMusic.push(id);
+    }
+    if(dataMusic.length>=songlistMetadata.length-3){
+        console.log("[INFO] CALL NEW SONGS")
+        appendToMusic()
+    }
+}
 
+
+prevBTN.addEventListener("click", ()=>{
+    const fillterId = songlistMetadata
+    console.log("[INFO]: queue num "+fillterId.length)
+    const findIdinArray = fillterId.indexOf(idBefore);
+    audioControl.pause();
+    currentTime = 0;
+    audioControl.currentTime = 0
+    const indexFind = findIdinArray-1
+    console.log(indexFind)
+    if(indexFind < 0){
+        isPlaying = false;
+        playpausebtn(fillterId[fillterId.length-1])
+    }else{
+        isPlaying = false;
+        playpausebtn(fillterId[indexFind])
+    }
+    chekQueue()
+})
+
+nextBTN.addEventListener("click", ()=>{
+    const fillterId = songlistMetadata
+    console.log("[INFO]: queue num "+fillterId.length)
+    const findIdinArray = fillterId.indexOf(idBefore);
+    audioControl.pause();
+    currentTime = 0;
+    audioControl.currentTime = 0
+    const indexFind = findIdinArray+1
+    console.log(indexFind)
+
+    if(indexFind >= fillterId.length){
+        isPlaying = false;
+        playpausebtn(fillterId[0])
+    }else{
+        isPlaying = false;
+        playpausebtn(fillterId[indexFind])
+    }
+    chekQueue()
+
+})
 
 
 // EVENT LISTENER - PLAY/PAUSE
@@ -87,12 +150,33 @@ audioControl.addEventListener("timeupdate", ()=>{
     updateProgress();
 })
 
+audioControl.addEventListener("ended", ()=>{
+    const fillterId = songlistMetadata
+    console.log("[INFO]: queue num "+fillterId.length)
+    const findIdinArray = fillterId.indexOf(idBefore);
+    audioControl.pause();
+    currentTime = 0;
+    audioControl.currentTime = 0
+    const indexFind = findIdinArray+1
+    console.log(indexFind)
+
+    if(indexFind >= fillterId.length){
+        isPlaying = false;
+        playpausebtn(fillterId[0])
+    }else{
+        isPlaying = false;
+        playpausebtn(fillterId[indexFind])
+    }
+    chekQueue()
+
+})
+
+
 
 async function playpausebtn(id){
-    
+    console.log("[INFO]: GOING TO ID: "+ id)
     isPlaying = !isPlaying; // Toggle status playing
-    console.log(`BEFORE: ${idBefore}`)
-
+    
     if(idBefore != id && idBefore && id != 0){
         console.log("masuk")
         currentTime = 0;
@@ -106,10 +190,8 @@ async function playpausebtn(id){
         idBefore = id
     }
     
-   console.log(`AFTER: ${idBefore}`)
    const idnow = id == 0 ? idBefore : id
     if (isPlaying){
-
 
         audioControl.src = getLiveSongURL(idnow);
         playIcon.style.display = 'none'; // Sembunyikan icon play
@@ -122,20 +204,7 @@ async function playpausebtn(id){
         }else{
             audioControl.play();
         }
-    // ================ INI BAGIAN UPDATE ======================
-        // progressInterval = setInterval(() => {
-        //             if (currentTime < totalDuration) {
-        //                 currentTime += 0.1; // Tambah waktu
-        //                 updateProgress(); // Update tampilan
-        //             } else {
-        //                 // Musik selesai
-        //                 isPlaying = false;
-        //                 playIcon.style.display = 'block';
-        //                 pauseIcon.style.display = 'none';
-        //                 clearInterval(progressInterval); // Stop interval
-        //             }
-        //         }, 100);
-            // ================ INI BAGIAN UPDATE ======================
+
     } else {
         // Saat pause diklik
         audioControl.pause()
@@ -147,35 +216,7 @@ async function playpausebtn(id){
     }
 }
 
-// playBtn.addEventListener('click', () => {
-//     isPlaying = !isPlaying; // Toggle status playing
-    
-//     if (isPlaying){
-//         // Saat play diklik
-//         playIcon.style.display = 'none'; // Sembunyikan icon play
-//         pauseIcon.style.display = 'block'; // Tampilkan icon pause
-//         document.getElementById("ashkbasllkavsd").setAttribute("checked", "checked")
-        
-//     // ================ INI BAGIAN UPDATE ======================
-//     // if (currentTime < totalDuration) {
-//         //     currentTime += 1; // Tambah waktu
-//         //     updateProgress(); // Update tampilan
-//         // } else {
-//             //     // Musik selesai
-//             //     isPlaying = false;
-//             //     playIcon.style.display = 'block';
-//             //     pauseIcon.style.display = 'none';
-//             //     clearInterval(progressInterval); // Stop interval
-//             // }
-//             // ================ INI BAGIAN UPDATE ======================
-//     } else {
-//         // Saat pause diklik
-//         document.getElementById("ashkbasllkavsd").removeAttribute("checked")
-//         playIcon.style.display = 'block'; // Tampilkan icon play
-//         pauseIcon.style.display = 'none'; // Sembunyikan icon pause
-//         clearInterval(progressInterval); // Stop interval
-//     }
-// });
+
 
 
 // EVENT LISTENER - PROGRESS BAR CLICK
