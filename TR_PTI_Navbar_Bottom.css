@@ -161,7 +161,17 @@
             stroke-width: 2;
         }
 
-        /* Sembunyikan gelombang suara saat muted */
+        /* Sembunyikan icon mute secara default (tampilkan gelombang suara) */
+        .volume-btn svg path:last-child {
+        display: none;
+        }
+
+        /* Tampilkan icon mute saat button diklik (sembunyikan gelombang suara) */
+        .volume-btn.muted svg path:nth-child(2),
+        .volume-btn.muted svg path:nth-child(3) {
+        display: none;
+        }
+
         .volume-btn.muted svg path:last-child {
-            display: none;
+        display: block;
         }
