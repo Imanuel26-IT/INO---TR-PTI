@@ -7,6 +7,9 @@
     <title>Sidebar Ikon Tooltip</title>
     <link rel="stylesheet" href="style.css">
     <script src="TR_PTI_Navbar_Bottom.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -39,16 +42,105 @@
             <i class="fas fa-power-off"></i>
         </div>
     </div>
+    <div id="contentAllJoin">
+        <div class="wrap">
+            <!-- ELEMENT: Banner The Presenters  -->
+            <section class="banner" aria-label="The Presenters">
+                <div class="banner__notes" aria-hidden="true"></div>
+                <div class="banner__staff" aria-hidden="true">
+                    <svg viewBox="0 0 800 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <g stroke="#c79700" stroke-width="2" fill="none" opacity=".6">
+                            <path d="M-20 110 C120 90, 220 130, 360 110 S600 90, 840 120" />
+                            <path d="M-20 130 C120 110, 220 150, 360 130 S600 110, 840 140" />
+                            <path d="M-20 150 C120 130, 220 170, 360 150 S600 130, 840 160" />
+                            <path d="M-20 170 C120 150, 220 190, 360 170 S600 150, 840 180" />
+                            <path d="M-20 190 C120 170, 220 210, 360 190 S600 170, 840 200" />
+                        </g>
+                        <path
+                            d="M250 90 C220 140, 300 170, 270 210 C250 235, 210 230, 212 205 C214 185, 240 178, 260 170"
+                            stroke="#9a6f00" stroke-width="6" fill="none" opacity=".7" />
+                    </svg>
+                </div>
+                <div class="banner__content">
+                    <h1 class="banner__title"><span>So who are the</span><span>guys behind</span><span>the mic?</span>
+                    </h1>
+                    <a href="#presenters" class="banner__link">The Presenters</a>
+                </div>
+                <div class="banner__art" aria-hidden="true">
+                    <!-- gambar simple mic dari svg internal assets soale belum nemu gambar e weh-->
+                    <svg viewBox="0 0 128 256" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#f7d24b" />
+                                <stop offset="1" stop-color="#c79300" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="40" y="200" width="48" height="16" rx="8" fill="#b78a00" />
+                        <rect x="36" y="176" width="56" height="28" rx="6" fill="#d5a200" />
+                        <rect x="44" y="96" width="40" height="84" rx="8" fill="url(#g)" />
+                        <rect x="32" y="12" width="64" height="96" rx="26" fill="url(#g)" stroke="#835f00"
+                            stroke-width="4" />
+                        <g fill="#805e00">
+                            <rect x="40" y="22" width="48" height="8" rx="4" />
+                            <rect x="40" y="38" width="48" height="8" rx="4" />
+                            <rect x="40" y="54" width="48" height="8" rx="4" />
+                            <rect x="40" y="70" width="48" height="8" rx="4" />
+                            <rect x="40" y="86" width="48" height="8" rx="4" />
+                        </g>
+                    </svg>
+                </div>
+            </section>
+            <!--  Banner The Presenters -->
+
+            <!--  Top Mahasiswa -->
+            <section class="section" id="presenters">
+                <div class="section__head">
+                    <h2 class="section__title">Top Mahasiswa</h2>
+                    <a class="section__seeall" href="#">See All</a>
+                </div>
+                <div class="rail" role="list">
+                    <!-- sc gambar sama Nama -->
+                    <article class="artist" role="listitem">
+                        <img class="artist__cover" alt="Artist cover" src="ndak tau" />
+                        <h3 class="artist__name">VALLEN</h3>
+                        <p class="artist__meta">INFORMATIKA</p>
+                    </article>
+                    <article class="artist" role="listitem">
+                        <img class="artist__cover" alt="Artist cover" src="ndak tau" />
+                        <h3 class="artist__name">FELIX</h3>
+                        <p class="artist__meta">INFORMATIKA</p>
+                    </article>
+                    <article class="artist" role="listitem">
+                        <img class="artist__cover" alt="Artist cover" src="ndak tau" />
+                        <h3 class="artist__name">Clement</h3>
+                        <p class="artist__meta">INFORMATIKA</p>
+                    </article>
+                    <article class="artist" role="listitem">
+                        <img class="artist__cover" alt="Artist cover" src="ndak tau" />
+                        <h3 class="artist__name">REGI</h3>
+                        <p class="artist__meta">INFORMATIKA</p>
+                    </article>
+                    <article class="artist" role="listitem">
+                        <img class="artist__cover" alt="Artist cover" src="ndak tau" />
+                        <h3 class="artist__name">Valen</h3>
+                        <p class="artist__meta">INFORMATIKA</p>
+                    </article>
+                </div>
+            </section>
+            <!-- Top Mahasiswa  -->
+        </div>
+    </div>
+
     <div class="player-container">
         <div class="controls-wrapper">
-            
+
             <!-- ========== KONTROL UTAMA ========== -->
             <div class="main-controls">
-                
+
                 <!-- Tombol Previous -->
                 <button class="control-btn prev-btn" aria-label="Previous">
                     <svg viewBox="0 0 24 24">
-                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                     </svg>
                 </button>
 
@@ -56,55 +148,56 @@
                 <button class="control-btn play-btn" id="playBtn" aria-label="Play">
                     <!-- Icon Play -->
                     <svg viewBox="0 0 24 24" id="playIcon">
-                        <path d="M8 5v14l11-7z"/>
+                        <path d="M8 5v14l11-7z" />
                     </svg>
                     <!-- Icon Pause (hidden by default) -->
                     <svg viewBox="0 0 24 24" id="pauseIcon" style="display: none;">
-                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                     </svg>
                 </button>
 
                 <!-- Tombol Next -->
                 <button class="control-btn next-btn" aria-label="Next">
                     <svg viewBox="0 0 24 24">
-                        <path d="M16 18h2V6h-2v12zM6 18l8.5-6L6 6v12z"/>
+                        <path d="M16 18h2V6h-2v12zM6 18l8.5-6L6 6v12z" />
                     </svg>
                 </button>
-                
+
             </div>
 
             <!-- ========== PROGRESS SECTION ========== -->
             <div class="progress-section">
-                
+
                 <!-- Waktu Saat Ini -->
                 <span class="time" id="currentTime">02:54</span>
-                
+
                 <!-- Progress Bar (bisa diklik dan di-drag) -->
                 <div class="progress-bar" id="progressBar">
                     <div class="progress-fill" id="progressFill">
                         <div class="progress-handle"></div>
                     </div>
                 </div>
-                
+
                 <!-- Total Durasi -->
                 <span class="time" id="duration">05:32</span>
-                
+
             </div>
 
             <!-- ========== KONTROL SEKUNDER ========== -->
             <div class="secondary-controls">
-                
+
                 <!-- Tombol Like/Heart -->
                 <button class="control-btn heart-btn" id="heartBtn" aria-label="Like">
                     <svg viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                     </svg>
                 </button>
 
                 <!-- Tombol Repeat -->
                 <button class="control-btn repeat-btn" aria-label="Repeat">
                     <svg viewBox="0 0 24 24">
-                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
                     </svg>
                 </button>
 
@@ -112,21 +205,24 @@
                 <button class="control-btn volume-btn" id="volumeBtn" aria-label="Volume">
                     <svg viewBox="0 0 24 24">
                         <!-- Speaker icon -->
-                        <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+                        <path d="M3 9v6h4l5 5V4L7 9H3z" />
                         <!-- Gelombang suara (hilang saat muted) -->
-                        <path d="M14 8.23v7.54c1.48-.73 2.5-2.25 2.5-4.02 0-1.77-1.02-3.29-2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4-.91 7-4.49 7-8.77 0-4.28-3-7.86-7-8.77z"/>
+                        <path
+                            d="M14 8.23v7.54c1.48-.73 2.5-2.25 2.5-4.02 0-1.77-1.02-3.29-2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4-.91 7-4.49 7-8.77 0-4.28-3-7.86-7-8.77z" />
                         <!-- Icon mute (ditampilkan saat muted) -->
-                        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                        <path
+                            d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
                     </svg>
                 </button>
 
                 <!-- Tombol Undo -->
                 <button class="control-btn undo-btn" aria-label="Undo">
                     <svg viewBox="0 0 24 24">
-                        <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+                        <path
+                            d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z" />
                     </svg>
                 </button>
-                
+
             </div>
         </div>
     </div>
