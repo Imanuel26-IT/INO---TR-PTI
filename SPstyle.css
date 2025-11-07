@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background-color: #121212;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 14px;
+  min-height: 100vh;
+  padding: 20px 24px;
+}
+
+/* Container */
+main.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Search input wrapper */
+.search-wrapper {
+  margin-bottom: 16px;
+  max-width: 700px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+  background-color: #2a2a2a;
+  color: white;
+  outline-offset: 2px;
+  transition: background-color 0.3s;
+}
+.search-input::placeholder {
+  color: #b3b3b3;
+}
+.search-input:focus {
+  background-color: #3a3a3a;
+  outline: 2px solid #ff8800;
+}
+
+/* Tabs Navigation */
+nav.search-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  max-width: 100%;
+}
+nav.search-tabs button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #282828; /* abu2 */
+  color: #b3b3b3;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+nav.search-tabs button:hover:not(.active) {
+  background-color: #404040;
+}
+nav.search-tabs button.active {
+  background-color: white;
+  color: black;
+}
+
+/* Content Flex */
+section.content {
+  display: flex;
+  gap: 48px;
+  flex-wrap: nowrap;
+  max-width: 100%;
+}
+
+/* Top Result Kotak dengan sudut membulat */
+section.top-result {
+  max-width: 320px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.top-result-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  background-color: #181818;
+  border-radius: 16px; 
+  box-shadow: 0 0 12px rgb(0 0 0 / 0.6);
+}
+.top-result-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.top-result-text {
+  display: flex;
+  flex-direction: column;
+}
+.top-result-text h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  line-height: 1.1;
+  color: white;
+}
+.top-result-text p {
+  font-size: 14px;
+  margin: 0;
+  color: #b3b3b3;
+}
+.top-result-text p strong {
+  color: white;
+}
+
+/* scroll untuk lagu */
+section.songs {
+  flex: 1 1 auto;
+  max-width: 700px;
+  min-width: 320px;
+  max-height: 480px; 
+  overflow-y: auto;
+  padding-right: 8px; 
+  scrollbar-width: thin;
+  scrollbar-color: #ffb701 #282828;
+}
+section.songs::-webkit-scrollbar {
+  width: 8px;
+}
+section.songs::-webkit-scrollbar-track {
+  background: #282828;
+  border-radius: 8px;
+}
+section.songs::-webkit-scrollbar-thumb {
+  background-color: #ffc400;
+  border-radius: 8px;
+  border: 2px solid #282828;
+}
+
+section.songs h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+ul.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li.song-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+li.song-item:hover .song-title {
+  color: #ffbf00;
+}
+
+.song-image {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.song-info {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+.song-title {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.song-artist {
+  margin: 3px 0 0 0;
+  font-size: 13px;
+  color: #666666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.song-duration {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666666;
+  font-size: 14px;
+  min-width: 48px;
+  flex-shrink: 0;
+}
+
+
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  section.content {
+    flex-direction: column;
+  }
+  section.top-result,
+  section.songs {
+    max-width: 100%;
+  }
+  nav.search-tabs {
+    gap: 8px;
+  }
+}
