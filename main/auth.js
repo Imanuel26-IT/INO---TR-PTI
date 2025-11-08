@@ -24,3 +24,4 @@ const getSpesificSong = (id) =>{
     if (!id) return console.error("please see your id music")
     return `${BASEURL}/rest/getSong?id=${id}${auth()}`
 }
+
