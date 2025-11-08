@@ -198,6 +198,7 @@ async function playpausebtn(id){
         idBefore = id
     }else if(id == 0 && !idBefore){
         id = songlistMetadata[0]
+        idBefore = id
     }
     console.log("[INFO]: GOING TO ID: "+ id)
     const idnow = id == 0 ? idBefore : id
