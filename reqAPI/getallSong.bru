@@ -1,0 +1,33 @@
+meta {
+  name: New HTTP Request
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://192.168.18.133:4533/rest/search3?query=&u=truenas_admin&t=e5a64bcf12c9f55c32e467614123b9aa&s=abc&v=1.16.1&c=Postman&f=json
+  body: none
+  auth: bearer
+}
+
+params:query {
+  query: 
+  u: truenas_admin
+  t: e5a64bcf12c9f55c32e467614123b9aa
+  s: abc
+  v: 1.16.1
+  c: Postman
+  f: json
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG0iOnRydWUsImV4cCI6MTc2MjU2NjY4MywiaWF0IjoxNzYyMzkzMjY2LCJpc3MiOiJORCIsInN1YiI6InRydWVuYXNfYWRtaW4iLCJ1aWQiOiJLUThqb0tCalRQWTFSblZXOFZLZkgxIn0.mJF3iq7ltqOmHoL3LBvvO07OQwCYqEyfrGahKCV7NgA
+}
+
+body:json {
+  {
+    "username": "truenas_admin",
+    "password": "Kolens271206"
+  }
+  
+}

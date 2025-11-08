@@ -1,0 +1,395 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    background: #000;
+    color: #b3b3b3;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 48px 0 120px;
+    min-height: 100vh;
+}
+
+/* START SALIN: Styling utama playlist favorit */
+.playlist-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 56px 140px;
+    background: linear-gradient(180deg, rgba(42, 42, 42, 0.95) 0%, rgba(26, 26, 26, 0.96) 320px, #0f0f0f 100%);
+    border-radius: 28px;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+    position: relative;
+    overflow: hidden;
+}
+
+.playlist-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(240, 192, 0, 0.12), transparent 45%),
+                radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 40%);
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeInBg 1.2s ease forwards 0.2s;
+}
+
+/* END SALIN: Styling utama playlist favorit */
+
+/* --- HEADER --- */
+
+.playlist-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+    margin-bottom: 32px;
+    animation: slideFadeUp 0.7s ease-out both;
+}
+
+.album-art {
+    width: 220px;
+    height: 220px;
+    background: linear-gradient(140deg, #f0c000 15%, #f8a700 60%, #f56f00 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 40px rgba(240, 192, 0, 0.4);
+    font-size: 92px;
+    color: #fff;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    animation: floatPulse 6s ease-in-out infinite;
+}
+
+.album-art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.2), transparent 60%);
+}
+
+
+.playlist-info p {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.playlist-info h1 {
+    color: #ffffff;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 12px 0 16px;
+}
+
+.playlist-info .meta {
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-transform: none;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.controls {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.controls .play-button {
+    background: linear-gradient(135deg, #f0c000 0%, #f7a900 65%, #f56f00 100%);
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    font-size: 26px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 12px 24px rgba(240, 192, 0, 0.35);
+}
+
+.controls .play-button:hover {
+    transform: scale(1.06);
+    box-shadow: 0 18px 36px rgba(240, 192, 0, 0.45);
+}
+
+.controls .fa-heart,
+.controls .fa-ellipsis-h {
+    font-size: 26px;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.controls .fa-heart:hover,
+.controls .fa-ellipsis-h:hover {
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+
+/* --- DAFTAR LAGU (DENGAN ANIMASI) --- */
+/* START SALIN: Styling daftar lagu */
+.song-list {
+    background: rgba(18, 18, 18, 0.75);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 8px 0;
+    margin-top: 32px;
+    backdrop-filter: blur(24px);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 20px 40px rgba(0, 0, 0, 0.45);
+    animation: fadeInBg 0.9s ease forwards 0.35s;
+}
+
+.song-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.song-list th,
+.song-list td {
+    padding: 14px 18px;
+    text-align: left;
+}
+
+.song-list th:first-child,
+.song-list td:first-child {
+    width: 72px;
+    text-align: center;
+}
+
+.song-list th:last-child,
+.song-list td:last-child {
+    text-align: right;
+    padding-right: 24px;
+}
+
+.song-list th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.song-list td {
+    font-size: 0.98rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.song-list tbody tr:not(:last-child) td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.song-list .song-title {
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+tbody tr {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeInRow 0.6s ease forwards;
+    animation-delay: var(--row-delay, 0.15s);
+}
+
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* KUNCI EFEK FADE IKON PLAY/PAUSE */
+.song-index {
+    width: 60px;
+    text-align: center;
+    position: relative; /* Penting untuk menumpuk ikon */
+}
+
+.song-index .song-number,
+.song-index .play-icon,
+.song-index .playing-icon {
+    /* Atur agar semua ikon/angka saling menumpuk */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Kunci animasi fade */
+    opacity: 1;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+}
+
+.song-index .play-icon,
+.song-index .playing-icon {
+    font-size: 0.9rem;
+}
+
+/* Sembunyikan ikon play dan playing secara default */
+.song-index .play-icon,
+.song-index .playing-icon {
+    opacity: 0;
+}
+
+/* Saat di-hover... */
+tbody tr:hover .song-number {
+    opacity: 0; /* Sembunyikan angka */
+}
+tbody tr:hover .play-icon {
+    opacity: 1; /* Tampilkan ikon play */
+    color: #fff;
+}
+
+/* Saat lagu sedang 'playing' */
+tr.playing .song-number,
+tr.playing .play-icon {
+    opacity: 0; /* Sembunyikan angka dan ikon play */
+}
+tr.playing .playing-icon {
+    opacity: 1; /* Tampilkan ikon 'sedang diputar' (volume) */
+    color: #f0c000; /* Warna kuning */
+}
+
+tr.playing {
+    background: rgba(255, 255, 255, 0.09);
+    box-shadow: inset 0 0 0 1px rgba(240, 192, 0, 0.4);
+}
+
+tr.playing td {
+    color: #fff;
+}
+
+tr.playing td:first-child::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 70%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #f0c000, rgba(240, 192, 0, 0.2));
+}
+
+/* Saat lagu 'playing' DAN di-hover */
+tr.playing:hover .song-number {
+    opacity: 0;
+}
+tr.playing:hover .playing-icon {
+    opacity: 1; /* Ikon volume tetap terlihat */
+}
+tr.playing:hover .play-icon {
+    opacity: 0; /* Ikon play tetap tersembunyi */
+}
+
+/* --- TOMBOL HOME (DENGAN ANIMASI) --- */
+/* END SALIN: Styling daftar lagu */
+
+/* START SALIN: Styling tombol home */
+.home-button {
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+    transform: translate(-50%, 120px);
+    opacity: 0;
+    visibility: hidden;
+    background: linear-gradient(135deg, #f0c000 0%, #f7a900 65%, #f56f00 100%);
+    color: #000;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(240, 192, 0, 0.35);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.home-button.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.home-button:hover {
+    transform: translate(-50%, -6px);
+    box-shadow: 0 18px 34px rgba(240, 192, 0, 0.4);
+}
+/* END SALIN: Styling tombol home */
+
+/* --- ANIMATIONS --- */
+@keyframes fadeInBg {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRow {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatPulse {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 20px 40px rgba(240, 192, 0, 0.35);
+    }
+    50% {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 24px 50px rgba(240, 192, 0, 0.45);
+    }
+}
+
+@media (max-width: 900px) {
+    body {
+        padding: 24px 0 100px;
+    }
+
+    .playlist-container {
+        margin: 0 20px;
+        padding: 32px 24px 120px;
+    }
+
+    .playlist-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .album-art {
+        width: 180px;
+        height: 180px;
+        border-radius: 20px;
+    }
+
+    .controls {
+        gap: 20px;
+    }
+
+    .song-list {
+        margin-top: 24px;
+    }
+}
