@@ -1,40 +1,90 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar Ikon Tooltip</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="sidebar-left">
-        <div class="menu-icon logo" data-tooltip="Music Player">
-        <img src="./OIP.png" alt="Logo Musik">
-    </div>
-    <div class="menu-items">
-        <div class="menu-icon active" data-tooltip="Home">
-        <i class="fas fa-home"></i>
-    </div>
-    <div class="menu-icon" data-tooltip="Radio">
-        <i class="fas fa-broadcast-tower"></i>
-    </div>
-    <div class="menu-icon" data-tooltip="Library">
-        <i class="fas fa-compact-disc"></i>
-    </div>
-    <div class="menu-icon" data-tooltip="Profile">
-        <i class="fas fa-user-circle"></i>
-    </div>
-    <div class="menu-icon" data-tooltip="Favorites">
-        <i class="fas fa-heart"></i>
-    </div>
-    <div class="menu-icon" data-tooltip="Settings">
-        <i class="fas fa-cog"></i>
-    </div>
-</div>
-    <div class="menu-icon power-button" data-tooltip="Power Off">
-        <i class="fas fa-power-off"></i>
-    </div>
-</div>
+        <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+
+        <div class="container">
+        <div class="auth-card">
+                        <div class="auth-header">
+                <h1 id="authTitle">Masuk</h1>
+                <p id="authSubtitle">Selamat datang kembali!</p>
+            </div>
+
+                        <div class="auth-body">
+                                <div class="form-group hidden" id="nameField">
+                    <label for="name">Nama Lengkap</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap">
+                    </div>
+                </div>
+
+                                <div class="form-group">
+                    <label for="email">Email atau Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="text" id="email" name="email" placeholder="Masukkan email atau username">
+                    </div>
+                </div>
+
+                                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" placeholder="Masukkan password">
+                        <button type="button" class="toggle-password" onclick="togglePassword('password')">
+                            <i class="fas fa-eye" id="passwordIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                                <div class="form-group hidden" id="confirmPasswordField">
+                    <label for="confirmPassword">Konfirmasi Password</label>
+              _ <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Konfirmasi password Anda">
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                            <i class="fas fa-eye" id="confirmPasswordIcon"></i>
+                        </button>
+                    </div>
+          _   </div>
+
+                                <div class="forgot-password" id="forgotPassword">
+                    <button type="button" onclick="forgotPasswordHandler()">Lupa Password?</button>
+                </div>
+
+                                <button class="btn-submit" onclick="handleSubmit()">
+                    <span id="submitText">Masuk</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                                <div class="divider">
+                    <span>atau</span>
+                </div>
+
+                                <div class="toggle-auth">
+                    <p id="toggleQuestion">Belum punya akun?</p>
+                    <button type="button" onclick="toggleAuthMode()" id="toggleButton">
+                        Daftar di sini
+                    </button>
+                </div>
+            </div>
+        </div>
+
+                <p class="footer-text">
+            Dengan melanjutkan, Anda menyetujui syarat & ketentuan kami
+        </p>
+    </div>
+
+        <script src="script.js"></script>
 </body>
 </html>
