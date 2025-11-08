@@ -8,17 +8,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Animated Background -->
     <div class="bg-circle bg-circle-1"></div>
     <div class="bg-circle bg-circle-2"></div>
 
+    <!-- Main Container -->
     <div class="container">
         <div class="auth-card">
+            <!-- Header -->
             <div class="auth-header">
                 <h1 id="authTitle">Masuk</h1>
                 <p id="authSubtitle">Selamat datang kembali!</p>
             </div>
 
+            <!-- Body -->
             <div class="auth-body">
+                <!-- Name Field (Only for Register) -->
                 <div class="form-group hidden" id="nameField">
                     <label for="name">Nama Lengkap</label>
                     <div class="input-wrapper">
@@ -32,6 +37,7 @@
                     </div>
                 </div>
 
+                <!-- Email Field -->
                 <div class="form-group">
                     <label for="email">Email atau Username</label>
                     <div class="input-wrapper">
@@ -45,6 +51,7 @@
                     </div>
                 </div>
 
+                <!-- Password Field -->
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="input-wrapper">
@@ -61,6 +68,7 @@
                     </div>
                 </div>
 
+                <!-- Confirm Password Field (Only for Register) -->
                 <div class="form-group hidden" id="confirmPasswordField">
                     <label for="confirmPassword">Konfirmasi Password</label>
                     <div class="input-wrapper">
@@ -77,19 +85,23 @@
                     </div>
                 </div>
 
+                <!-- Forgot Password (Only for Login) -->
                 <div class="forgot-password" id="forgotPassword">
                     <button type="button" onclick="forgotPasswordHandler()">Lupa Password?</button>
                 </div>
 
+                <!-- Submit Button -->
                 <button class="btn-submit" onclick="handleSubmit()">
                     <span id="submitText">Masuk</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
 
+                <!-- Divider -->
                 <div class="divider">
                     <span>atau</span>
                 </div>
 
+                <!-- Toggle Auth Mode -->
                 <div class="toggle-auth">
                     <p id="toggleQuestion">Belum punya akun?</p>
                     <button type="button" onclick="toggleAuthMode()" id="toggleButton">
@@ -99,11 +111,11 @@
             </div>
         </div>
 
+        <!-- Footer -->
         <p class="footer-text">
             Dengan melanjutkan, Anda menyetujui syarat & ketentuan kami
         </p>
     </div>
-
-    <script src="script.js" defer></script>
+<script src="components.js"></script>
 </body>
 </html>
