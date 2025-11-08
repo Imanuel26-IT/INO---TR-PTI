@@ -6,7 +6,7 @@ body {
     color: #b3b3b3;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
-    padding: 48px 0 120px;
+    padding: 30px 0 0px;
     min-height: 100vh;
 }
 
@@ -137,6 +137,8 @@ body {
 /* --- DAFTAR LAGU (DENGAN ANIMASI) --- */
 /* START SALIN: Styling daftar lagu */
 .song-list {
+    overflow-y: auto;
+    max-height: 450px;
     background: rgba(18, 18, 18, 0.75);
     border-radius: 18px;
     border: 1px solid rgba(255, 255, 255, 0.04);
@@ -393,3 +395,168 @@ tr.playing:hover .play-icon {
         margin-top: 24px;
     }
 }
+
+
+#favdelete{
+    cursor: pointer;
+}
+
+/* From Uiverse.io by Galahhad */ 
+/* level settings 👇 */
+
+.slider {
+  /* slider */
+  --slider-width: 100%;
+  --slider-height: 6px;
+  --slider-bg: rgb(82, 82, 82);
+  --slider-border-radius: 999px;
+  /* level */
+  --level-color: #fff;
+  --level-transition-duration: .1s;
+  /* icon */
+  --icon-margin: 15px;
+  --icon-color: var(--slider-bg);
+  --icon-size: 25px;
+}
+
+.slider {
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.slider .volume {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: var(--icon-margin);
+  color: var(--icon-color);
+  width: var(--icon-size);
+  height: auto;
+}
+
+.slider .level {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: var(--slider-width);
+  height: var(--slider-height);
+  background: var(--slider-bg);
+  overflow: hidden;
+  border-radius: var(--slider-border-radius);
+  -webkit-transition: height var(--level-transition-duration);
+  -o-transition: height var(--level-transition-duration);
+  transition: height var(--level-transition-duration);
+  cursor: inherit;
+}
+
+.slider .level::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  -webkit-box-shadow: -200px 0 0 200px var(--level-color);
+  box-shadow: -200px 0 0 200px var(--level-color);
+}
+
+.slider:hover .level {
+  height: calc(var(--slider-height) * 2);
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+/* Efek hover pada tombol */
+.control-btn:hover {
+    opacity: 0.7;
+}
+
+/* Styling untuk icon SVG di dalam tombol */
+.control-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: #ffffff;
+}
+
+
+.progress-section {
+            flex: 1; /* Mengambil sisa ruang yang ada */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Styling untuk teks waktu (current time & duration) */
+        .time {
+            color: #b3b3b3; /* Warna abu-abu terang */
+            font-size: 13px;
+            min-width: 42px;
+            font-variant-numeric: tabular-nums; /* Angka dengan lebar sama */
+        }
+
+        /* Progress bar container */
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: #4a4a4a; 
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            user-select: none; /* Mencegah text selection saat drag */
+        }
+
+        /* Bar yang menunjukkan progress (warna kuning) */
+        .progress-fill {
+            height: 100%;
+            background: #FFD700; 
+            border-radius: 2px;
+            width: 0%; 
+            position: relative;
+            transition: width 0.1s linear;
+        }
+
+        /* Handle bulat di ujung progress bar */
+        .progress-handle {
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: #FFD700;
+            border-radius: 50%;
+            opacity: 0; 
+            transition: opacity 0.2s;
+        }
+
+        /* Tampilkan handle saat hover atau drag */
+        .progress-bar:hover .progress-handle,
+        .progress-bar.dragging .progress-handle {
+            opacity: 1;
+        }
+
+        /* Ubah cursor saat sedang drag */
+        .progress-bar.dragging {
+            cursor: grabbing;
+        }
+
+        /* Kontrol sekunder (like, repeat, volume, undo) */
+        .secondary-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }

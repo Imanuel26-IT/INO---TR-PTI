@@ -452,14 +452,9 @@ body {
 }
 
 
-
-
-
-
 /* Container utama player */
 .player-container {
     top: 90dvh;
-    /* left: calc((100vw/2-(90%/2))px); */
     left: 50%;
     transform: translateX(-50%);
     position: fixed;
@@ -468,6 +463,7 @@ body {
     padding: 20px 30px;
     width: 90%;
     max-width: 97%;
+    transition: transform 1s ease;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Bayangan untuk efek depth */
 }
 
@@ -768,7 +764,7 @@ body {
 .top-nav {
   position: fixed;
   display: flex;
-  width: 96.2%;
+  width: 98dvw;
   z-index: 10;
   justify-content: space-between;
   align-items: center;
@@ -1071,4 +1067,13 @@ body {
   box-shadow:
     -100px 0 5px 100px var(--level-color),
     -100px 0px 20px 100px var(--level-color);
+}
+
+
+iframe{
+  position: fixed;
+  top: 100px;
+  width: 100%;
+  height: 100dvh;
+  border: none;
 }

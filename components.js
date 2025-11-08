@@ -54,3 +54,43 @@ const musicsongs = (title, artist, musicId=1, imageSRC="")=>{
     }
 
 
+const playlistPPage = () =>{
+    const element = document.createElement("iframe");
+    const favPage = "./playlistpage/favpage.html"
+    element.src = favPage;
+    return element;
+}
+
+/* 
+
+<tr data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                        <td class="song-index">
+                            <span class="song-number">1</span>
+                            <i class="fas fa-play play-icon"></i>
+                            <i class="fas fa-pause playing-icon"></i>
+                        </td>
+                        <td class="song-title">Bohemian Rhapsody</td>
+                        <td>Queen</td>
+                        <td>A Night at the Opera</td>
+                        <td>5:55</td>
+                    </tr>
+
+*/
+
+const songrow = (songnum,audioID, artist, title, album,duration) =>{
+    album = album == "[Unknown Album]"? ".....": album
+    const element = document.createElement("tr")
+    element.setAttribute("data-audio", audioID);
+    element.innerHTML = `
+        <td class="song-index">
+            <span class="song-number">${songnum}</span>
+            <i class="fas fa-play play-icon"></i>
+            <i class="fas fa-pause playing-icon"></i>
+        </td>
+        <td class="song-title title">${title}</td>
+        <td>${artist}</td>
+        <td>${album}</td>
+        <td>${duration}</td>
+    `
+    return element
+}

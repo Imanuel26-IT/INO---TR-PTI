@@ -1,26 +1,6 @@
 
 
-const BASEURL = "https://musichost.myhomedrivekolens.my.id"
-const auth = () =>{
-    return `&u=truenas_admin&t=54d3946c3ac11114d649e9b6789182e8&s=abc&v=1.16.1&c=Postman&f=json`
-}
-const getlist = (search="", songCount=10, songOffset=0) => {
-    return BASEURL + `/rest/search3?query=${search}&songCount=${songCount}&songOffset=${songOffset}${auth()}`
-} 
 
-const getThumbnailURL = (id, size = 100)=>{
-    if (!id) return console.error("please see your id music")
-    return `${BASEURL}/rest/getCoverArt?id=${id}&size=${size}${auth()}`
-}
-
-const getLiveSongURL = (id) =>{
-    if (!id) return console.error("please see your id music")
-    return`${BASEURL}/rest/stream?id=${id}${auth()}`
-}
-
-const getRandomSongURL = (limit=5) =>{
-    return `${BASEURL}/rest/getRandomSongs?size=${limit}${auth()}`
-}
 
 const musicContainer = document.getElementById("music-container");
 
@@ -30,9 +10,11 @@ let currentTime = 0; // Waktu saat ini dalam detik (02:54)
 let totalDuration = 0; // Total durasi musik dalam detik (05:32)
 let progressInterval; // Variable untuk menyimpan interval timer
 let idBefore;
+let currentID;
 let songlistMetadata = [];
 let dataMusic = [];
 let currentAudiovolume = 1;
+let listLoveSong = JSON.parse(localStorage.getItem("fav")) || [];
 
 // AMBIL ELEMEN 
 const playBtn = document.getElementById('playBtn'); // Tombol play/pause
@@ -51,6 +33,7 @@ const inputSearch = document.getElementById("inputsearch");
 const musicSearchtop = document.getElementById("music-container-search");
 const popupwin = document.getElementById("musicSearch-dialog")
 const artisID = document.getElementById("artistlistid");
+const playercontainer = document.getElementById("player-container");
 // FUNGSI HELPER
 
 // Fungsi untuk format detik menjadi MM:SS
@@ -113,7 +96,7 @@ prevBTN.addEventListener("click", ()=>{
     const fillterId = songlistMetadata
     console.log("[INFO]: queue num "+fillterId.length)
     const findIdinArray = fillterId.indexOf(idBefore);
-    audioControl.pause();
+   
     currentTime = 0;
     audioControl.currentTime = 0
     const indexFind = findIdinArray-1
@@ -133,7 +116,7 @@ nextBTN.addEventListener("click", ()=>{
     const fillterId = songlistMetadata
     console.log("[INFO]: queue num "+fillterId.length)
     const findIdinArray = fillterId.indexOf(idBefore);
-    audioControl.pause();
+   
     currentTime = 0;
     audioControl.currentTime = 0
     const indexFind = findIdinArray+1
@@ -153,10 +136,17 @@ nextBTN.addEventListener("click", ()=>{
 // EVENT LISTENER - PLAY/PAUSE
 
 audioControl.addEventListener("timeupdate", ()=>{
-    totalDuration = audioControl.duration
-    currentTime = audioControl.currentTime || 0
-    totalDurationelement.textContent = formatTime(totalDuration)
+    currentTime = audioControl.currentTime === NaN ? 0 : audioControl.currentTime
     updateProgress();
+})
+
+audioControl.addEventListener("play", ()=>{
+    totalDurationelement.textContent = "WAIT.."
+})
+
+audioControl.addEventListener("playing", ()=>{
+    totalDuration = audioControl.duration === NaN ? 0 : audioControl.duration 
+    totalDurationelement.textContent = formatTime(totalDuration)
 })
 
 audioControl.addEventListener("ended", ()=>{
@@ -180,29 +170,39 @@ audioControl.addEventListener("ended", ()=>{
 
 })
 
+function chekisFav(id) {
+    if (listLoveSong.includes(id)) {
+        // Jika lagu ada di daftar favorit
+        heartBtn.classList.add('active');
+    } else {
+        // Jika lagu tidak ada di daftar favorit
+        heartBtn.classList.remove('active');
+    }
+}
 
 
 async function playpausebtn(id){
-    isPlaying = !isPlaying; // Toggle status playing
-    
-    if(idBefore != id && idBefore && id != 0){
-        console.log("masuk")
-        currentTime = 0;
-        updateProgress();
-        document.getElementById(idBefore).checked = false;
-        document.getElementById(idBefore).removeAttribute("checked")
-        isPlaying = true;
-    }
-    
-    if(id != 0){
-        idBefore = id
-    }else if(id == 0 && !idBefore){
-        id = songlistMetadata[0]
-        idBefore = id
-    }
-    console.log("[INFO]: GOING TO ID: "+ id)
-    const idnow = id == 0 ? idBefore : id
     try{
+        isPlaying = !isPlaying; // Toggle status playing
+        
+        if(idBefore != id && idBefore && id != 0){
+            console.log("masuk")
+            currentTime = 0;
+            updateProgress();
+            document.getElementById(idBefore).checked = false;
+            document.getElementById(idBefore).removeAttribute("checked")
+            isPlaying = true;
+        }
+        
+        if(id != 0){
+            idBefore = id
+        }else if(id == 0 && !idBefore){
+            id = songlistMetadata[0]
+            idBefore = id
+        }
+        console.log("[INFO]: GOING TO ID: "+ id)
+        const idnow = id == 0 ? idBefore : id
+        currentID = idnow
         if (isPlaying){
             audioControl.src = getLiveSongURL(idnow);
             document.getElementById(idnow).setAttribute("checked", "checked")
@@ -225,9 +225,11 @@ async function playpausebtn(id){
             document.getElementById(idnow).checked = false;
             document.getElementById(idnow).removeAttribute("checked")
         }
+        chekisFav(idnow);
     }
     catch(err) {
         console.error(err)
+        return err
     }
 }
 
@@ -250,6 +252,18 @@ progressBar.addEventListener('click', (e) => {
 
 heartBtn.addEventListener('click', () => {
     heartBtn.classList.toggle('active'); // Toggle class active
+    if(!heartBtn.classList.contains('active')){
+        if(currentID){
+            listLoveSong.splice(listLoveSong.indexOf(currentID),1);
+        }
+    }else{
+        if(currentID){
+            listLoveSong.push(currentID);
+        }
+    }
+
+    localStorage.setItem("fav", JSON.stringify(listLoveSong))
+    console.log(listLoveSong)
 });
 
 
@@ -387,3 +401,26 @@ async function getAlbumthumniail() {
 }   
 
 getAlbumthumniail()
+
+
+let innerthtmlhome;
+function getFavPage() {
+    audioControl.pause()
+    playercontainer.style.transform = "translate(-50%,200px)"
+    const el = document.getElementById("containercontent");
+    innerthtmlhome=el.firstElementChild;
+    el.innerHTML = ''
+    el.appendChild( playlistPPage())
+}
+// getFavPage()
+
+function goTOHOME() {
+    playercontainer.style.transform = "translate(-50%,0px)"
+    const el = document.getElementById("containercontent");
+    el.innerHTML = ''
+    el.appendChild(innerthtmlhome)
+}
+
+
+
+// getFavPage()
