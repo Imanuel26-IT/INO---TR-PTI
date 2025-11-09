@@ -5,6 +5,7 @@ let currentTime = 0; // Waktu saat ini dalam detik (02:54)
 let totalDuration = 0; // Total durasi musik dalam detik (05:32)
 let progressInterval; // Variable untuk menyimpan interval timer
 let isDragging = false;
+let timedrag = 0;
 
 
 function formatTime(seconds) {
@@ -39,7 +40,8 @@ function updateProgressFromEvent(e) {
     pos = Math.max(0, Math.min(1, pos));
     
     // Update waktu current berdasarkan posisi
-    currentTime = pos * totalDuration;
+    timedrag = pos * totalDuration;
+    currentTime = timedrag
     
     // Update tampilan progress bar
     updateProgress();
@@ -63,12 +65,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Event saat mouse dilepas (selesai drag)
-document.addEventListener('mouseup', () => {
-    if (isDragging) {
-        isDragging = false;
-        progressBar.classList.remove('dragging'); // Hapus class dragging
-    }
-});
+
 
 function asad(){
     // START SALIN: Logika interaksi playlist favorit
@@ -80,7 +77,7 @@ function asad(){
     const inputlevel = document.getElementById("inputLevel")
     const prevBTN = document.getElementById("prev-btn");
     const nextBTN = document.getElementById("next-btn");
-    const songTime = document.getElementById("songtime");
+
     audioPlayer.volume = inputlevel.value/100;
     
     const updatePlayButtonIcon = (isPlaying) => {
@@ -247,6 +244,14 @@ function asad(){
                 playRow(nextRow);
             }
         })
+
+        document.addEventListener('mouseup', () => {
+            audioPlayer.currentTime = timedrag
+            if (isDragging) {
+                isDragging = false;
+                progressBar.classList.remove('dragging'); // Hapus class dragging
+            }
+        });
 
         
     }
