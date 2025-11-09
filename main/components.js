@@ -56,6 +56,7 @@ const musicsongs = (title, artist, musicId=1, imageSRC="")=>{
 
 const playlistPPage = () =>{
     const element = document.createElement("iframe");
+    element.classList.add("iramefav")
     const favPage = "../playlistpage/favpage.html"
     element.src = favPage;
     return element;
@@ -93,4 +94,25 @@ const songrow = (songnum,audioID, artist, title, album,duration) =>{
         <td>${duration}</td>
     `
     return element
+}
+
+const songsearchList = (imageSRC, title, artist, duration, songID) =>{
+    const li = document.createElement("li")
+    li.classList.add("song-item");
+    li.setAttribute("data-song", songID)
+    li.innerHTML = `
+            <img
+              src="${imageSRC}"
+              alt="About You Album Artwork"
+              class="song-image"
+              width="55"
+              height="55"
+            />
+            <div class="song-info">
+              <p class="song-title">${title}</p>
+              <p class="song-artist">${artist}</p>
+            </div>
+            <div class="song-duration">${duration}</div>
+        `
+    return li
 }

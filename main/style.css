@@ -1070,10 +1070,26 @@ body {
 }
 
 
-iframe{
+.iramefav{
   position: fixed;
   top: 100px;
   width: 100%;
   height: 100dvh;
   border: none;
+}
+
+#searchPage { 
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  top: 8vh;
+  
+  transform: translateX(-50%);
+}
+
+#searchPage iframe{
+  width: 70dvh;
+  height: 80dvh;
+  border-radius: 20px;
 }

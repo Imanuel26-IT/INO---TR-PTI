@@ -31,9 +31,10 @@ const prevBTN = document.getElementById("prev-btn");
 const nextBTN = document.getElementById("next-btn");
 const inputSearch = document.getElementById("inputsearch");
 const musicSearchtop = document.getElementById("music-container-search");
-const popupwin = document.getElementById("musicSearch-dialog")
+// const popupwin = document.getElementById("musicSearch-dialog")
 const artisID = document.getElementById("artistlistid");
 const playercontainer = document.getElementById("player-container");
+const iframesearch = document.getElementById("searchPage");
 // FUNGSI HELPER
 
 // Fungsi untuk format detik menjadi MM:SS
@@ -189,8 +190,10 @@ async function playpausebtn(id){
             console.log("masuk")
             currentTime = 0;
             updateProgress();
-            document.getElementById(idBefore).checked = false;
-            document.getElementById(idBefore).removeAttribute("checked")
+            if(songlistMetadata.includes(idBefore)){
+                document.getElementById(idBefore).checked = false;
+                document.getElementById(idBefore).removeAttribute("checked")
+            }
             isPlaying = true;
         }
         
@@ -205,8 +208,12 @@ async function playpausebtn(id){
         currentID = idnow
         if (isPlaying){
             audioControl.src = getLiveSongURL(idnow);
-            document.getElementById(idnow).setAttribute("checked", "checked")
-            document.getElementById(idnow).checked = true;
+
+            if(songlistMetadata.includes(idBefore)){
+                document.getElementById(idnow).setAttribute("checked", "checked")
+                document.getElementById(idnow).checked = true;
+            }
+
             playIcon.style.display = 'none'; // Sembunyikan icon play
             pauseIcon.style.display = 'block'; // Tampilkan icon pause
             if(currentTime > 0){
@@ -222,8 +229,10 @@ async function playpausebtn(id){
             playIcon.style.display = 'block'; // Tampilkan icon play
             pauseIcon.style.display = 'none'; // Sembunyikan icon pause
             clearInterval(progressInterval);
-            document.getElementById(idnow).checked = false;
-            document.getElementById(idnow).removeAttribute("checked")
+            if(songlistMetadata.includes(idBefore)){
+                document.getElementById(idnow).checked = false;
+                document.getElementById(idnow).removeAttribute("checked")
+            }
         }
         chekisFav(idnow);
     }
@@ -285,8 +294,8 @@ volumeBtn.addEventListener("mouseover", ()=>{
     document.getElementById("slidervolume").style.display="";
     document.querySelector("body").addEventListener("click", ()=>{
         document.getElementById("slidervolume").style.display="none";
+    
     })
-
 })
 
 
@@ -365,29 +374,39 @@ const debouncedSearch = debounce(async() => {
     console.log(search);
     if(!search == ' '){
         console.log("[INFO] wait to fetch")
-        musicSearchtop.innerHTML = ''
         const songlist = await getMusicListAndSearch(inputSearch.value) || [];
-        if(songlist.length <= 0) return
+        if(songlist.length <= 0) return null
         const songs = songlist['subsonic-response'].searchResult3?.song || [];
-        console.log(songs)
-        console.log(songlist)
-        songs.forEach(element => {
-            console.log(element.id)
-            musicSearchtop.appendChild(musicsongs(element.title, element.artist, element.id, getThumbnailURL(element.id)))
-        });
+        
+        document.getElementById("iframesarch").contentWindow.catchMusicSearch(songs);
     }
 }, 500);
 
 
-inputSearch.addEventListener("keydown", ()=>{
-    debouncedSearch()
+
+
+
+inputSearch.addEventListener("input", async()=>{
+    debouncedSearch();
+    
 })
 
-popupwin.style.display = "none"
+
 inputSearch.addEventListener("focus", ()=>{
-    popupwin.style.display = ""
-    popupwin.style.opacity = 1
+    // ./search/SPindex.html
+    iframesearch.style.display = "block";
+    // inputSearch.addEventListener("mouseleave", ()=>{
+    //     iframesearch.style.display = "none";
+    // })
 })
+
+iframesearch.addEventListener("mouseenter", ()=>{
+    iframesearch.addEventListener("mouseout", ()=>{
+        iframesearch.style.display = "none";
+    })
+})
+
+
 
 async function getAlbumthumniail() {
     const randomSongs = await fetch(getRandomSongURL(5)).then(f=>f.json())
