@@ -116,3 +116,10 @@ const songsearchList = (imageSRC, title, artist, duration, songID) =>{
         `
     return li
 }
+
+const pforile = () =>{
+    const iframe = document.createElement("iframe");
+    iframe.classList.add("iramefav")
+    iframe.src = "./profile/Index.html"
+    return iframe
+}

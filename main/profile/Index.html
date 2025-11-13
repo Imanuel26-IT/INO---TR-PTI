@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player - Profile</title>
+    <script src ="profile_page.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <button class="edit-profile-btn" onclick="showEditOptions()">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+                <div class="profile-top">
+                    <div class="profile-image-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=Andi+Pratama&size=150&background=f9d423&color=1a1a1a&bold=true" alt="Profile" class="profile-image" id="profileImage">
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name" id="displayName">Andi Pratama</h1>
+                        <p class="profile-username" id="displayUsername">@andipratama</p>
+                        <p class="profile-bio" id="displayBio">Music enthusiast 🎵 | Love exploring new genres | Always vibing to good beats</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="profile-tabs">
+                <button class="tab-btn active" onclick="switchTab('info')">
+                    <i class="fas fa-info-circle"></i> Informasi
+                </button>
+                <button class="tab-btn" onclick="switchTab('settings')">
+                    <i class="fas fa-cog"></i> Pengaturan
+                </button>
+            </div>
+
+            <!-- Tab Content: Info -->
+            <div id="infoTab" class="tab-content active">
+                <div class="info-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-user"></i> Informasi Pribadi
+                    </h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Nama Lengkap</span>
+                            <span class="info-value" id="infoName">Andi Pratama</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Username</span>
+                            <span class="info-value" id="infoUsername">@andipratama</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value" id="infoEmail">andi.pratama@email.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Nomor Telepon</span>
+                            <span class="info-value" id="infoPhone">+62 812-3456-7890</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tanggal Lahir</span>
+                            <span class="info-value" id="infoBirthdate">15 Agustus 1995</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Jenis Kelamin</span>
+                            <span class="info-value" id="infoGender">Laki-laki</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Settings -->
+            <div id="settingsTab" class="tab-content">
+                <div class="info-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-shield-alt"></i> Keamanan Akun
+                    </h2>
+                    <div class="form-group">
+                        <label class="form-label">Password Lama</label>
+                        <input type="password" class="form-input" id="oldPassword" placeholder="Masukkan password lama">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password Baru</label>
+                        <input type="password" class="form-input" id="newPassword" placeholder="Masukkan password baru">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Konfirmasi Password Baru</label>
+                        <input type="password" class="form-input" id="confirmPassword" placeholder="Konfirmasi password baru">
+                    </div>
+                    <button class="btn btn-primary" onclick="changePassword()">
+                        <i class="fas fa-key"></i> Ubah Password
+                    </button>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-envelope"></i> Ubah Email
+                    </h2>
+                    <div class="form-group">
+                        <label class="form-label">Email Baru</label>
+                        <input type="email" class="form-input" id="newEmail" placeholder="Masukkan email baru">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Konfirmasi dengan Password</label>
+                        <input type="password" class="form-input" id="emailPassword" placeholder="Masukkan password">
+                    </div>
+                    <button class="btn btn-primary" onclick="changeEmail()">
+                        <i class="fas fa-envelope"></i> Ubah Email
+                    </button>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-phone"></i> Ubah Nomor Telepon
+                    </h2>
+                    <div class="form-group">
+                        <label class="form-label">Nomor Telepon Baru</label>
+                        <input type="tel" class="form-input" id="newPhone" placeholder="+62 812-3456-7890">
+                    </div>
+                    <button class="btn btn-primary" onclick="changePhone()">
+                        <i class="fas fa-phone"></i> Ubah Nomor Telepon
+                    </button>
+                </div>
+
+                <div class="danger-zone">
+                    <h3 class="danger-title">
+                        <i class="fas fa-exclamation-triangle"></i> Danger Zone
+                    </h3>
+                    <p class="danger-text">
+                        Tindakan di bawah ini bersifat permanen dan tidak dapat dibatalkan. Harap berhati-hati.
+                    </p>
+                    <div class="btn-group">
+                        <button class="btn btn-danger" onclick="deactivateAccount()">
+                            <i class="fas fa-user-slash"></i> Nonaktifkan Akun
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteAccount()">
+                            <i class="fas fa-trash"></i> Hapus Akun
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Page -->
+    <div class="edit-profile-page" id="editProfilePage">
+        <div class="edit-page-header">
+            <button class="back-btn" onclick="closeEditPage()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="edit-page-title" id="editPageTitle">Edit Profile</h1>
+        </div>
+        <div class="edit-page-content" id="editPageContent">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <span id="successText">Perubahan berhasil disimpan!</span>
+    </div>
+</body>
+</html>

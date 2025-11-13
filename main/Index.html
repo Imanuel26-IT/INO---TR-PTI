@@ -29,21 +29,21 @@
             <div class="menu-icon active" data-tooltip="Home">
                 <i class="fas fa-home" onclick="goTOHOME()"></i>
             </div>
-            <div class="menu-icon" data-tooltip="Radio">
+            <!-- <div class="menu-icon" data-tooltip="Radio">
                 <i class="fas fa-broadcast-tower"></i>
-            </div>
-            <div class="menu-icon" data-tooltip="Library">
+            </div> -->
+            <!-- <div class="menu-icon" data-tooltip="Library">
                 <i class="fas fa-compact-disc"></i>
-            </div>
+            </div> -->
             <div class="menu-icon" data-tooltip="Profile">
-                <i class="fas fa-user-circle"></i>
+                <i class="fas fa-user-circle" onclick="profile()"></i>
             </div>
             <div class="menu-icon" data-tooltip="Favorites">
                 <i class="fas fa-heart" onclick="getFavPage()"></i>
             </div>
-            <div class="menu-icon" data-tooltip="Settings">
+            <!-- <div class="menu-icon" data-tooltip="Settings">
                 <i class="fas fa-cog"></i>
-            </div>
+            </div> -->
         </div>
         <div class="menu-icon power-button" data-tooltip="Power Off">
             <i class="fas fa-power-off"></i>
@@ -100,7 +100,7 @@
                 </button>
 
                 <div class="profile-pic-container" tabindex="0" aria-label="User Profile">
-                    <img src="/try.jpg" alt="Profile Picture" />
+                    <img src="" id="profile-pic" alt="Profile Picture" />
                 </div>
             </div>
         </nav>

@@ -272,7 +272,6 @@ heartBtn.addEventListener('click', () => {
     }
 
     localStorage.setItem("fav", JSON.stringify(listLoveSong))
-    console.log(listLoveSong)
 });
 
 
@@ -423,11 +422,11 @@ getAlbumthumniail()
 
 
 let innerthtmlhome;
+const el = document.getElementById("containercontent");
+innerthtmlhome=el.firstElementChild;
 function getFavPage() {
     audioControl.pause()
     playercontainer.style.transform = "translate(-50%,200px)"
-    const el = document.getElementById("containercontent");
-    innerthtmlhome=el.firstElementChild;
     el.innerHTML = ''
     el.appendChild( playlistPPage())
 }
@@ -435,11 +434,28 @@ function getFavPage() {
 
 function goTOHOME() {
     playercontainer.style.transform = "translate(-50%,0px)"
-    const el = document.getElementById("containercontent");
     el.innerHTML = ''
     el.appendChild(innerthtmlhome)
 }
 
+
+function profile (){
+    playercontainer.style.transform = "translate(-50%,200px)"
+    el.innerHTML = ''
+    el.appendChild( pforile())
+}
+
+const sidebar = document.querySelectorAll('.menu-icon');
+
+console.log(sidebar.length)
+sidebar.forEach(f=>{
+    f.addEventListener("click", function(){
+        sidebar.forEach(f => f.classList.remove("active"))
+        this.classList.add('active');
+    })
+})
+
+document.getElementById("profile-pic").src = localStorage.getItem("profile_photo")
 
 
 // getFavPage()

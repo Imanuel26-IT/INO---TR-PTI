@@ -77,6 +77,7 @@ function asad(){
     const inputlevel = document.getElementById("inputLevel")
     const prevBTN = document.getElementById("prev-btn");
     const nextBTN = document.getElementById("next-btn");
+    const favDEl = document.getElementById("favdelete")
 
     audioPlayer.volume = inputlevel.value/100;
     
@@ -262,14 +263,50 @@ function asad(){
         audioPlayer.volume = inputlevel.value/100;
     })
 
+    favDEl.addEventListener("click", ()=>{
+        try{
+            const url = currentlyPlayingRow.getAttribute("data-audio")
+            const urlparams = new URLSearchParams(new URL(url).search);
+            const id = urlparams.get("id");
+            
+            const index = listLoveSong.indexOf(id);
+            listLoveSong.splice(index,1);
+            localStorage.setItem("fav", JSON.stringify(listLoveSong));
+            currentlyPlayingRow.remove()
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0
+            currentTime = 0
+
+        }catch{
+            alert("Pilih terlebih dahulu lagu mana yang ingin anda hapus")
+        }
+
+    })
+
 }
 
 
 document.addEventListener('DOMContentLoaded', async() => {
-    listLoveSong.forEach(async(id, index)=>{
-        const { ["subsonic-response"]: subsonic } = await (await fetch(getSpesificSong(id))).json();
-        await document.getElementById("favmusic").appendChild(songrow((index+1), getLiveSongURL(id), subsonic.song.artist, subsonic.song.title,subsonic.song.album,formatTime(subsonic.song.duration)))
-        asad()
-    })
+    const promises = listLoveSong.map(id => 
+        fetch(getSpesificSong(id)).then(res => res.json())
+    );
+
+    const results = await Promise.all(promises);
+
+    results.forEach((data, index) => {
+    const subsonic = data["subsonic-response"];
+    const id = listLoveSong[index];
+    document.getElementById("favmusic").appendChild(
+        songrow(
+            (index + 1), 
+            getLiveSongURL(id), 
+            subsonic.song.artist, 
+            subsonic.song.title,
+            subsonic.song.album,
+            formatTime(subsonic.song.duration)
+        )
+    );
+    });
+    asad();
 });
 
