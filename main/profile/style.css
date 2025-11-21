@@ -509,7 +509,7 @@
         .edit-profile-page {
             position: fixed;
             top: 0;
-            left: 70px;
+            left: 0;
             right: 0;
             bottom: 0;
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
@@ -703,3 +703,4 @@
         transform: none;
         box-shadow: none;
         }
+
